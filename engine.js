@@ -39,7 +39,7 @@ module.exports = function (options) {
     // By default, we'll de-indent your commit
     // template and will keep empty lines.
     prompter: function(cz, commit) {
-      console.log('\nLine 1 will be cropped at 100 characters. All other lines will be wrapped after 100 characters.\n');
+      console.log('\nLine 1 will be cropped at 72 characters. All other lines will be wrapped after 72 characters.\n');
 
       // Let's ask some questions of the user
       // so that we can populate our commit
@@ -77,7 +77,8 @@ module.exports = function (options) {
         }
       ]).then(function(answers) {
 
-        var maxLineWidth = 100;
+        var maxHeaderWidth = 72;
+        var maxLineWidth = 72;
 
         var wrapOptions = {
           trim: true,
@@ -91,7 +92,7 @@ module.exports = function (options) {
         scope = scope ? '(' + answers.scope.trim() + ')' : '';
 
         // Hard limit this line
-        var head = (answers.type + scope + ': ' + answers.subject.trim()).slice(0, maxLineWidth);
+        var head = (answers.type + scope + ': ' + answers.subject.trim()).slice(0, maxHeaderWidth);
 
         // Wrap these lines at 100 characters
         var body = wrap(answers.body, wrapOptions);
