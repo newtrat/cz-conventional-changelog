@@ -92,7 +92,10 @@ module.exports = function (options) {
         scope = scope ? '(' + answers.scope.trim() + ')' : '';
 
         // Hard limit this line
-        var head = (answers.type + scope + ': ' + answers.subject.trim()).slice(0, maxHeaderWidth);
+        var head = (answers.type + scope + ': ' + answers.subject.trim());
+        if (head.length > maxHeaderWidth) {
+          throw new Error(`Nah, that's ${head.length} characters. Limit it to ${maxHeaderWidth}.`);
+        }
 
         // Wrap these lines at 100 characters
         var body = wrap(answers.body, wrapOptions);
